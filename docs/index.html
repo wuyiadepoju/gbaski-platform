@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NNVS API Documentation</title>
+        <link href="https://cdn.jsdelivr.net/npm/redoc@latest/redoc.min.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <redoc id="redoc"></redoc>
+        <script>
+            var scheme = window.location.protocol;
+            var hostname = window.location.hostname;
+            var port = window.location.port;
+            // var specUrl = scheme + "//" + hostname + (port ? ":" + port : "") + "/docs/openapi.yaml";
+            // document.getElementById("redoc").setAttribute("spec-url", specUrl);
+            document.getElementById("redoc").setAttribute("spec-url", "./swagger.yaml");
+        </script>
+        <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+    </body>
+</html>
+
+
+

@@ -1,0 +1,1730 @@
+basePath: /
+definitions:
+  auth.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  auth.LoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/auth.LoginResponseData'
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  auth.LoginResponseData:
+    properties:
+      tokens:
+        $ref: '#/definitions/auth.TokenDetails'
+      user:
+        $ref: '#/definitions/auth.User'
+    type: object
+  auth.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  auth.RegisterRequest:
+    properties:
+      accountType:
+        $ref: '#/definitions/common.AccountType'
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phone:
+        type: string
+      referralUrl:
+        type: string
+    required:
+    - email
+    - firstName
+    - name
+    - password
+    type: object
+  auth.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  auth.TokenDetails:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  auth.User:
+    properties:
+      accountStatus:
+        $ref: '#/definitions/common.AccountStatus'
+      accountType:
+        $ref: '#/definitions/common.AccountType'
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      settings:
+        items:
+          type: integer
+        type: array
+    type: object
+  common.AccountStatus:
+    enum:
+    - active
+    - unverified
+    - suspended
+    - deleted
+    type: string
+    x-enum-varnames:
+    - AccountStatusActive
+    - AccountStatusUnverified
+    - AccountStatusSuspended
+    - AccountStatusDeleted
+  common.AccountType:
+    enum:
+    - attendee
+    - organizer
+    type: string
+    x-enum-varnames:
+    - AccountTypeAttendee
+    - AccountTypeOrganizer
+  engage.EngageWaitlistRequest:
+    properties:
+      feature:
+        type: string
+    type: object
+  engage.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  event.FormConfigs:
+    properties:
+      email:
+        $ref: '#/definitions/event.FormEmailConfig'
+      redirect:
+        $ref: '#/definitions/event.FormRedirectConfig'
+      refundPolicy:
+        $ref: '#/definitions/event.FormRefundPolicyConfig'
+    type: object
+  event.FormEmailConfig:
+    properties:
+      content:
+        type: string
+      enabled:
+        type: boolean
+    type: object
+  event.FormLink:
+    properties:
+      description:
+        type: string
+      label:
+        type: string
+      message:
+        type: string
+      phone:
+        type: string
+      url:
+        type: string
+    type: object
+  event.FormRedirectConfig:
+    properties:
+      enabled:
+        type: boolean
+      link:
+        $ref: '#/definitions/event.FormLink'
+      type:
+        type: string
+    type: object
+  event.FormRefundPolicyConfig:
+    properties:
+      daysBeforeEvent:
+        type: integer
+      enabled:
+        type: boolean
+      refundPercentage:
+        type: integer
+      refundType:
+        type: string
+    type: object
+  event.StatusRequest:
+    properties:
+      status:
+        type: string
+    type: object
+  event.UpdateEventImageRequest:
+    properties:
+      eventId:
+        type: string
+      imageUrl:
+        type: string
+    type: object
+  event.UpdateEventVideoRequest:
+    properties:
+      eventId:
+        type: string
+      videoUrl:
+        type: string
+    type: object
+  github_com_gbaski_gbaski-ext_common.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  github_com_gbaski_gbaski-host_internal_common.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  github_com_gbaski_gbaski-host_internal_event.CreateEventRequest:
+    properties:
+      accessType:
+        type: string
+      categoryId:
+        type: integer
+      description:
+        type: string
+      durationType:
+        type: string
+      endDate:
+        type: string
+      formId:
+        type: string
+      imageUrl:
+        type: string
+      location:
+        type: string
+      modeType:
+        type: string
+      name:
+        type: string
+      otherCategory:
+        type: string
+      payment:
+        type: string
+      regType:
+        type: string
+      socialMedia:
+        items:
+          type: integer
+        type: array
+      startDate:
+        type: string
+      videoUrl:
+        type: string
+    required:
+    - description
+    - durationType
+    - endDate
+    - modeType
+    - name
+    - payment
+    - regType
+    - startDate
+    type: object
+  github_com_gbaski_gbaski-host_internal_event.FormRequest:
+    properties:
+      accessType:
+        type: string
+      configs:
+        $ref: '#/definitions/event.FormConfigs'
+      currency:
+        type: string
+      endDate:
+        type: string
+      eventId:
+        type: string
+      feePayer:
+        type: string
+      id:
+        type: string
+      isPrimaryForm:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      regType:
+        type: string
+      schema:
+        items:
+          type: integer
+        type: array
+      startDate:
+        type: string
+    type: object
+  github_com_gbaski_gbaski-host_internal_event.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  payout.ChangePayoutTypeRequest:
+    properties:
+      payoutAccountId:
+        type: integer
+      payoutType:
+        type: string
+      userId:
+        type: string
+    type: object
+  payout.CreatePaymentPayoutRequest:
+    properties:
+      provider:
+        type: string
+      publicKey:
+        type: string
+      secretKey:
+        type: string
+      sellerName:
+        type: string
+      state:
+        type: string
+      userId:
+        type: string
+    type: object
+  payout.CreatePayoutAccountRequest:
+    properties:
+      accountName:
+        type: string
+      accountNumber:
+        type: string
+      bankId:
+        type: integer
+      currency:
+        type: string
+      userId:
+        type: string
+    type: object
+  payout.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  registration.CreateCheckInAgentRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  registration.RegistrationStatus:
+    enum:
+    - registered
+    - checkedin
+    - cancelled
+    type: string
+    x-enum-varnames:
+    - RegistrationStatusRegistered
+    - RegistrationStatusCheckedIn
+    - RegistrationStatusCancelled
+  registration.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      otp_required:
+        type: boolean
+      status:
+        example: success
+        type: string
+    type: object
+  registration.UpdateRegistrationStatusRequest:
+    properties:
+      formId:
+        type: string
+      regId:
+        type: integer
+      regRef:
+        type: string
+      regStatus:
+        $ref: '#/definitions/registration.RegistrationStatus'
+      regType:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@gbaski.app
+    name: API Support
+  description: API documentation for Gbaski Host service
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Gbaski Host API
+  version: "1.0"
+paths:
+  /auth/available-name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Check if a name is available for registration
+      parameters:
+      - description: Name to check
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      summary: Check if a name is available
+      tags:
+      - auth
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user and return JWT tokens
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      summary: Login user
+      tags:
+      - auth
+  /auth/otp-login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user using OTP code sent to their email
+      parameters:
+      - description: Email address
+        in: query
+        name: otp_email
+        required: true
+        type: string
+      - description: OTP code (required for verification)
+        in: query
+        name: otp_code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      summary: Login user with OTP
+      tags:
+      - auth
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Get a new access token using a valid refresh token
+      parameters:
+      - description: Refresh token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      summary: Refresh access token
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user in the system
+      parameters:
+      - description: User registration details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      summary: Register new user
+      tags:
+      - auth
+  /engage/features:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve engagement features available for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/engage.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/engage.Response'
+      security:
+      - Bearer: []
+      summary: Get engagement features
+      tags:
+      - engage
+  /engage/waitlist:
+    post:
+      consumes:
+      - application/json
+      description: Add the authenticated user to the waitlist for a specific feature
+      parameters:
+      - description: Waitlist request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/engage.EngageWaitlistRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/engage.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/engage.Response'
+      security:
+      - Bearer: []
+      summary: Join engagement waitlist
+      tags:
+      - engage
+  /events:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of events for the authenticated user
+        with optional filtering and search
+      parameters:
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      - description: Filter parameters
+        in: query
+        name: filter
+        type: string
+      - description: Range parameters
+        in: query
+        name: range
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get all events
+      tags:
+      - events
+    post:
+      consumes:
+      - application/json
+      description: Create a new event for the authenticated user
+      parameters:
+      - description: Event creation details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.CreateEventRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Create new event
+      tags:
+      - events
+  /events/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an event by ID
+      parameters:
+      - description: Event ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Delete event
+      tags:
+      - events
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a single event by its ID
+      parameters:
+      - description: Event ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get event by ID
+      tags:
+      - events
+    put:
+      consumes:
+      - application/json
+      description: Update an existing event by ID
+      parameters:
+      - description: Event ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Event update details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.CreateEventRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Update event
+      tags:
+      - events
+  /events/{id}/stats:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve statistics for a specific event
+      parameters:
+      - description: Event ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get event statistics
+      tags:
+      - events
+  /events/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: Update the status of an existing event
+      parameters:
+      - description: Event ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Status update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.StatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Update event status
+      tags:
+      - events
+  /events/categories:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all available event categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get event categories
+      tags:
+      - events
+  /events/image:
+    post:
+      consumes:
+      - application/json
+      description: Update the image URL for an event
+      parameters:
+      - description: Event image update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.UpdateEventImageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Update event image
+      tags:
+      - events
+  /events/report:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a report of all events for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get events report
+      tags:
+      - events
+  /events/video:
+    post:
+      consumes:
+      - application/json
+      description: Update the video URL for an event
+      parameters:
+      - description: Event video update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.UpdateEventVideoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Update event video
+      tags:
+      - events
+  /payout/account:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve the payout account for the authenticated user
+      parameters:
+      - default: NGN
+        description: Currency code
+        in: query
+        name: currency
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_common.Response'
+      security:
+      - Bearer: []
+      summary: Get payout account
+      tags:
+      - payout
+  /payout/banks:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of available banks for payout account setup
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Get payout banks
+      tags:
+      - payout
+  /payout/change-type:
+    post:
+      consumes:
+      - application/json
+      description: Change the payout type for a payout account
+      parameters:
+      - description: Payout type change request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/payout.ChangePayoutTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Change payout type
+      tags:
+      - payout
+  /payout/create-account:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payout account for the authenticated user with OTP
+        verification
+      parameters:
+      - description: OTP code for verification
+        in: query
+        name: otp_code
+        type: string
+      - description: Payout account creation details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/payout.CreatePayoutAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Create payout account
+      tags:
+      - payout
+  /payout/history/{formId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated payout history for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      - description: Filter parameters
+        in: query
+        name: filter
+        type: string
+      - description: Range parameters
+        in: query
+        name: range
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Get payout history
+      tags:
+      - payout
+  /payout/payment-provider:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve payment provider integration details for the authenticated
+        user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Get payment payout provider
+      tags:
+      - payout
+    post:
+      consumes:
+      - application/json
+      description: Create or update payment provider integration for payouts
+      parameters:
+      - description: Payment payout provider details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/payout.CreatePaymentPayoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Create payment payout provider
+      tags:
+      - payout
+  /payout/summary/{formId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve payout summary for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Get payout summary
+      tags:
+      - payout
+  /payout/total-payout/{formId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve total payout amount for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payout.Response'
+      security:
+      - Bearer: []
+      summary: Get total payout
+      tags:
+      - payout
+  /registrations/check-in:
+    get:
+      consumes:
+      - application/json
+      description: Check in a registration using registration reference and agent
+        token
+      parameters:
+      - description: Registration reference
+        in: query
+        name: regRef
+        required: true
+        type: string
+      - description: Bearer token (check-in agent token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/registration.Response'
+      summary: Check in registration
+      tags:
+      - registrations
+  /registrations/forms:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all registration forms for the authenticated user's events
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Get event forms
+      tags:
+      - events
+    post:
+      consumes:
+      - application/json
+      description: Create a new registration form for an event
+      parameters:
+      - description: Form creation details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.FormRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-host_internal_event.Response'
+      security:
+      - Bearer: []
+      summary: Create registration form
+      tags:
+      - events
+  /registrations/lookup:
+    get:
+      consumes:
+      - application/json
+      description: Lookup a registration by registration reference using agent token
+      parameters:
+      - description: Registration reference
+        in: query
+        name: regRef
+        required: true
+        type: string
+      - description: Bearer token (check-in agent token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      summary: Lookup registration
+      tags:
+      - registrations
+  /registrations/ticket/{formId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of ticket registrations for a specific
+        form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      - description: Filter parameters
+        in: query
+        name: filter
+        type: string
+      - description: Range parameters
+        in: query
+        name: range
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Get ticket registrations
+      tags:
+      - registrations
+  /registrations/ticket/{formId}/attendees:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of ticket attendees for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      - description: Filter parameters
+        in: query
+        name: filter
+        type: string
+      - description: Range parameters
+        in: query
+        name: range
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Get ticket attendees
+      tags:
+      - registrations
+  /registrations/ticket/{formId}/check-in-agents:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all check-in agents for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Get ticket check-in agents
+      tags:
+      - registrations
+    post:
+      consumes:
+      - application/json
+      description: Create a new check-in agent for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Check-in agent creation details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/registration.CreateCheckInAgentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Create ticket check-in agent
+      tags:
+      - registrations
+  /registrations/ticket/{formId}/check-in-agents/{token}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a check-in agent by token for a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Agent token
+        in: path
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Delete ticket check-in agent
+      tags:
+      - registrations
+  /registrations/ticket/{formId}/stats:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve statistics for ticket registrations of a specific form
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Get ticket registration statistics
+      tags:
+      - registrations
+  /registrations/ticket/{formId}/status:
+    put:
+      consumes:
+      - application/json
+      description: Update the status of a ticket registration (check-in)
+      parameters:
+      - description: Form ID (UUID)
+        in: path
+        name: formId
+        required: true
+        type: string
+      - description: Registration status update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/registration.UpdateRegistrationStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      security:
+      - Bearer: []
+      summary: Update ticket registration status
+      tags:
+      - registrations
+  /registrations/ticket/check-in-agent/{state}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a check-in agent by state token
+      parameters:
+      - description: Agent state token
+        in: path
+        name: state
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/registration.Response'
+      summary: Get ticket check-in agent
+      tags:
+      - registrations
+  /settings/change-password:
+    post:
+      consumes:
+      - application/json
+      description: Update the password for the authenticated user using OTP verification
+      parameters:
+      - description: OTP code for verification
+        in: query
+        name: otp_code
+        type: string
+      - description: Password change request
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      security:
+      - Bearer: []
+      summary: Change user password
+      tags:
+      - auth
+  /settings/change-phone:
+    post:
+      consumes:
+      - application/json
+      description: Update the phone number for the authenticated user
+      parameters:
+      - description: Phone number change request
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/auth.Response'
+      security:
+      - Bearer: []
+      summary: Change user phone number
+      tags:
+      - auth
+  /upload/signed-url:
+    get:
+      consumes:
+      - application/json
+      description: Generate a pre-signed URL for uploading files to S3
+      parameters:
+      - description: Object name for the file
+        in: query
+        name: objectName
+        required: true
+        type: string
+      - description: Content type of the file (e.g., image/jpeg, video/mp4)
+        in: query
+        name: contentType
+        required: true
+        type: string
+      - default: gbaski-storage
+        description: S3 bucket name
+        in: query
+        name: bucketName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_gbaski_gbaski-ext_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - Bearer: []
+      summary: Get signed URL for file upload
+      tags:
+      - upload
+schemes:
+- http
+- https
+swagger: "2.0"
