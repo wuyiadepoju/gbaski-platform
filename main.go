@@ -21,12 +21,13 @@ import (
 	"time"
 
 	"github.com/gbaski/gbaski-event/pkg/wallet"
-	"github.com/gbaski/gbaski-platform/app/event"
-	"github.com/gbaski/gbaski-platform/app/form"
-	"github.com/gbaski/gbaski-platform/app/payout"
-	"github.com/gbaski/gbaski-platform/app/registration"
-	"github.com/gbaski/gbaski-platform/app/setting"
+	"github.com/gbaski/gbaski-platform/internal/event"
+	"github.com/gbaski/gbaski-platform/internal/payout"
+	"github.com/gbaski/gbaski-platform/internal/registration"
+	"github.com/gbaski/gbaski-platform/internal/setting"
 	"github.com/gbaski/gbaski-shared/config"
+	postgres "github.com/gbaski/gbaski-shared/postgres"
+	"github.com/jmoiron/sqlx"
 
 	fiberadapter "github.com/awslabs/aws-lambda-go-api-proxy/fiber"
 	"github.com/gofiber/fiber/v2"
@@ -44,21 +45,20 @@ var (
 	jobService          *job.Service
 	mailcoachService    *mailcoach.Mailcoach
 	authHandler         *auth.AuthHandler
-	formHandler         *form.FormHandler
 	eventHandler        *event.EventHandler
 	payoutHandler       *payout.PayoutHandler
 	registrationHandler *registration.RegistrationHandler
 	settingHandler      *setting.SettingHandler
 	walletHandler       *wallet.WalletHandler
+	db                  *sqlx.DB
 )
 
 func init() {
-
 	jobService = job.NewService()
 	mailcoachService = mailcoach.New()
 	authHandler = auth.NewAuthHandler()
-	formHandler = form.NewFormHandler()
-	eventHandler = event.NewEventHandler()
+	// Event handler will be initialized in main() after config is loaded
+	// eventHandler = event.NewEventHandler(db)
 	payoutHandler = payout.NewPayoutHandler()
 	registrationHandler = registration.NewRegistrationHandler()
 	settingHandler = setting.NewSettingHandler()
@@ -70,6 +70,12 @@ func main() {
 	if err := config.LoadConfig(); err != nil {
 		log.Error("platform", "load_config_error", err)
 	}
+
+	// Initialize database connection
+	db = postgres.New()
+
+	// Initialize event handler with DB connection
+	eventHandler = event.NewEventHandler(db)
 
 	// Setup Loki logging
 	log.SetLokiConfig(log.LokiConfig{
