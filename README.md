@@ -11,7 +11,7 @@ The **Gbaski Host API** is the core backend service for the Gbaski platform, pro
 - **Wallet**: Balance tracking and transaction management.
 - **File Uploads**: S3 pre-signed URL generation for media uploads.
 - **Developer Tools**: Integrated Swagger UI for API documentation and exploration.
-- **Observability**: Structured logging with Loki, error tracking with Sentry, and OpenTelemetry integration.
+- **Observability**: Structured logging with Loki and error tracking with Sentry.
 
 ## 🛠 Tech Stack
 
@@ -20,7 +20,7 @@ The **Gbaski Host API** is the core backend service for the Gbaski platform, pro
 - **Database**: PostgreSQL (via [sqlx](https://github.com/jmoiron/sqlx))
 - **Cache**: Redis
 - **Cloud**: AWS (Lambda, S3, SQS, CloudFront)
-- **Monitoring**: Loki, Sentry, OpenTelemetry
+- **Monitoring**: Loki, Sentry
 - **Documentation**: [Swagger / Swag](https://github.com/swaggo/swag)
 
 ## 📁 Project Structure
